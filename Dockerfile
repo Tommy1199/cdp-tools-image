@@ -4,8 +4,8 @@ MAINTAINER Sascha Selzer sascha.selzer@gmail.com
 
 ENV OC_VERSION=v3.9.0 \
     OC_TAG_SHA=191fece \
-    BUILD_DEPS='tar gzip python py-pip py-setuptools ca-certificates groff less' \ 
-    RUN_DEPS='curl gettext jq' \
+    BUILD_DEPS='tar gzip py-pip py-setuptools ca-certificates groff less' \ 
+    RUN_DEPS='python curl gettext jq' \
     AWS_CLI_VERSION=1.15.68
 
 ENV LANG=C.UTF-8
@@ -39,8 +39,8 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
 
 RUN apk update --no-cache && \
-    apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
     apk add --no-cache $RUN_DEPS   && \
+    apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
     wget "https://raw.githubusercontent.com/sgerrand/alpine-pkg-git-crypt/master/sgerrand.rsa.pub" \
         -O "/etc/apk/keys/sgerrand.rsa.pub"  && \
     wget "https://github.com/sgerrand/alpine-pkg-git-crypt/releases/download/0.6.0-r0/git-crypt-0.6.0-r0.apk" && \
